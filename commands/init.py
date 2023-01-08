@@ -8,6 +8,7 @@ import questionary
 from git import Repo
 
 from filter.commitCallback.init import InitCommitCallback
+from utils.binary import Binary
 from utils.customProgress import CustomProgress
 from utils.customQuestionary import CustomQuestionary
 from utils.gitProgressHandler import GitProgressHandler
@@ -18,7 +19,12 @@ from utils.safechdir import Safechdir
 
 
 def Init(
-    destination: str, input: Optional[str], output: str, upstream: str, force: bool
+    binary: Binary,
+    destination: str,
+    input: Optional[str],
+    output: str,
+    upstream: str,
+    force: bool,
 ):
     destination: Path = Path(destination).resolve()
 
@@ -56,7 +62,7 @@ def Init(
         args = fr.FilteringOptions.parse_args(
             ["--prune-empty", "never", "--quiet"] + (["--force"] if force else [])
         )
-        initCommitCallback = InitCommitCallback(destination, input, output)
+        initCommitCallback = InitCommitCallback(binary, destination, input, output)
         filter = fr.RepoFilter(args, commit_callback=initCommitCallback)
         initCommitCallback.filter = filter
         with Safechdir(destination), HiddenPrints():

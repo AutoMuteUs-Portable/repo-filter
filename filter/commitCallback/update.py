@@ -4,6 +4,7 @@ from typing import Any, Dict, Union
 import git_filter_repo as fr
 
 from filter.filter import Filter
+from utils.binary import Binary
 from utils.dill import FilterInDill
 
 from .commitCallbackBase import CommitCallbackBase
@@ -12,11 +13,12 @@ from .commitCallbackBase import CommitCallbackBase
 class UpdateCommitCallback(CommitCallbackBase):
     def __init__(
         self,
+        binary: Binary,
         destination: Path,
         input: Path,
         output: Path,
     ):
-        super().__init__(destination, input, output)
+        super().__init__(binary, destination, input, output)
 
         self.filterFrom: Union[str, None] = None
 

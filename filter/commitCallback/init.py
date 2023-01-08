@@ -12,7 +12,7 @@ class InitCommitCallback(CommitCallbackBase):
     def __call__(self, commit: fr.Commit, metadata: Dict[str, Any]):
         old_hexsha: str = commit.original_id.decode()
 
-        if old_hexsha in self.appliedFilters:
+        if self.input is not None and old_hexsha in self.appliedFilters:
             filter = self.appliedFilters[old_hexsha]["filter"]
             filter._destination = self.destination
             filter._filter = self.filter

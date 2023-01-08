@@ -9,6 +9,7 @@ from rich import get_console
 from rich.padding import Padding
 
 from filter.commitCallback.update import UpdateCommitCallback
+from utils.binary import Binary
 from utils.customProgress import CustomProgress
 from utils.gitProgressHandler import GitProgressHandler
 from utils.gitVerifyRepostiory import GitVerifyRepository
@@ -17,7 +18,14 @@ from utils.rmtree import rmtree
 from utils.safechdir import Safechdir
 
 
-def Update(destination: str, input: str, output: str, upstream: str, force: bool):
+def Update(
+    binary: Binary,
+    destination: str,
+    input: str,
+    output: str,
+    upstream: str,
+    force: bool,
+):
     console = get_console()
 
     destination: Path = Path(destination).resolve()
@@ -46,7 +54,7 @@ def Update(destination: str, input: str, output: str, upstream: str, force: bool
         args = fr.FilteringOptions.parse_args(
             ["--prune-empty", "never", "--quiet"] + (["--force"] if force else [])
         )
-        updateCommitCallback = UpdateCommitCallback(destination, input, output)
+        updateCommitCallback = UpdateCommitCallback(binary, destination, input, output)
 
         filterFrom = next(
             iter(

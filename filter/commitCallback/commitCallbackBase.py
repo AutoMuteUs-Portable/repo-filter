@@ -6,6 +6,7 @@ from typing import Any, Dict, List, Optional, Union
 import dill
 import git_filter_repo as fr
 
+from utils.binary import Binary
 from utils.create_ce_mode import create_ce_mode
 from utils.customProgress import CustomProgress
 from utils.dill import DillObject, FilterInDill
@@ -18,10 +19,12 @@ from .parseCommitMap import ParseCommitMap
 class CommitCallbackBase:
     def __init__(
         self,
+        binary: Binary,
         destination: Path,
         input: Optional[Path],
         output: Path,
     ):
+        self.binary = binary
         self.filter: Union[fr.RepoFilter, None] = None
         self.destination = destination
         self.input = input
@@ -40,13 +43,11 @@ class CommitCallbackBase:
         self.filesToRemove = [".github/*", ".github/**/*", "README.md", "LICENSE"]
 
         self.filesToAdd: List[File] = []
-        root_dir = (
-            Path(os.path.dirname(__file__))
-            .joinpath("../../")
-            .joinpath("automuteus")
-            .resolve()
-        )
+
+        filesDir = Path(os.path.dirname(__file__)).joinpath("../files").resolve()
+        root_dir = filesDir.joinpath(binary.value).resolve()
         patterns = ["*", "**/*"]
+
         for pattern in patterns:
             for path in root_dir.glob(pattern):
                 if path.is_dir():
