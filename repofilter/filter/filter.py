@@ -25,8 +25,10 @@ class Filter(FilterBase):
 
     def __getstate__(self):
         state = self.__dict__.copy()
-        del state["_destination"]
-        del state["_filter"]
+        if "_destination" in state:
+            del state["_destination"]
+        if "_filter" in state:
+            del state["_filter"]
         return state
 
     def __setstate__(self, state):
