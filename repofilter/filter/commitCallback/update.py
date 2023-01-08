@@ -3,9 +3,9 @@ from typing import Any, Dict, Union
 
 import git_filter_repo as fr
 
-from filter.filter import Filter
-from utils.binary import Binary
-from utils.dill import FilterInDill
+from repofilter.filter.filter import Filter
+from repofilter.utils.binary import Binary
+from repofilter.utils.dill import FilterInDill
 
 from .commitCallbackBase import CommitCallbackBase
 

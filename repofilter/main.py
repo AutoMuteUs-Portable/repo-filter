@@ -2,10 +2,10 @@ from typing import Optional
 
 import click
 
-from commands.init import Init
-from commands.update import Update
-from utils.binary import Binary
-from utils.initializeConsole import InitializeConsole
+from repofilter.commands.init import Init
+from repofilter.commands.update import Update
+from repofilter.utils.binary import Binary
+from repofilter.utils.initializeConsole import InitializeConsole
 
 console = InitializeConsole()
 

@@ -2,8 +2,8 @@ from typing import Any, Dict
 
 import git_filter_repo as fr
 
-from filter.filter import Filter
-from utils.dill import FilterInDill
+from repofilter.filter.filter import Filter
+from repofilter.utils.dill import FilterInDill
 
 from .commitCallbackBase import CommitCallbackBase
 

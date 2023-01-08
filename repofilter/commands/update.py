@@ -8,14 +8,14 @@ from git import Repo
 from rich import get_console
 from rich.padding import Padding
 
-from filter.commitCallback.update import UpdateCommitCallback
-from utils.binary import Binary
-from utils.customProgress import CustomProgress
-from utils.gitProgressHandler import GitProgressHandler
-from utils.gitVerifyRepostiory import GitVerifyRepository
-from utils.hiddenPrints import HiddenPrints
-from utils.rmtree import rmtree
-from utils.safechdir import Safechdir
+from repofilter.filter.commitCallback.update import UpdateCommitCallback
+from repofilter.utils.binary import Binary
+from repofilter.utils.customProgress import CustomProgress
+from repofilter.utils.gitProgressHandler import GitProgressHandler
+from repofilter.utils.gitVerifyRepostiory import GitVerifyRepository
+from repofilter.utils.hiddenPrints import HiddenPrints
+from repofilter.utils.rmtree import rmtree
+from repofilter.utils.safechdir import Safechdir
 
 
 def Update(

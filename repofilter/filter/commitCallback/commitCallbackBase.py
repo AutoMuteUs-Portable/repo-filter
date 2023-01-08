@@ -6,12 +6,12 @@ from typing import Any, Dict, List, Optional, Union
 import dill
 import git_filter_repo as fr
 
-from utils.binary import Binary
-from utils.create_ce_mode import create_ce_mode
-from utils.customProgress import CustomProgress
-from utils.dill import DillObject, FilterInDill
-from utils.file import File
-from utils.stat import _wstat64
+from repofilter.utils.binary import Binary
+from repofilter.utils.create_ce_mode import create_ce_mode
+from repofilter.utils.customProgress import CustomProgress
+from repofilter.utils.dill import DillObject, FilterInDill
+from repofilter.utils.file import File
+from repofilter.utils.stat import _wstat64
 
 from .parseCommitMap import ParseCommitMap
 

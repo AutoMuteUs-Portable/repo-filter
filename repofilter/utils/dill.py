@@ -1,6 +1,6 @@
 from typing import List, TypedDict
 
-from filter.filterBase import FilterBase
+from repofilter.filter.filterBase import FilterBase
 
 
 class FilterInDill(TypedDict):

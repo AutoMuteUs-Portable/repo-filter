@@ -7,15 +7,15 @@ import git_filter_repo as fr
 import questionary
 from git import Repo
 
-from filter.commitCallback.init import InitCommitCallback
-from utils.binary import Binary
-from utils.customProgress import CustomProgress
-from utils.customQuestionary import CustomQuestionary
-from utils.gitProgressHandler import GitProgressHandler
-from utils.gitVerifyRepostiory import GitVerifyRepository
-from utils.hiddenPrints import HiddenPrints
-from utils.rmtree import rmtree
-from utils.safechdir import Safechdir
+from repofilter.filter.commitCallback.init import InitCommitCallback
+from repofilter.utils.binary import Binary
+from repofilter.utils.customProgress import CustomProgress
+from repofilter.utils.customQuestionary import CustomQuestionary
+from repofilter.utils.gitProgressHandler import GitProgressHandler
+from repofilter.utils.gitVerifyRepostiory import GitVerifyRepository
+from repofilter.utils.hiddenPrints import HiddenPrints
+from repofilter.utils.rmtree import rmtree
+from repofilter.utils.safechdir import Safechdir
 
 
 def Init(

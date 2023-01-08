@@ -5,7 +5,7 @@ from typing import Any, Dict, List
 
 import git_filter_repo as fr
 
-from utils.file import File
+from repofilter.utils.file import File
 
 from .filterBase import FilterBase
 
