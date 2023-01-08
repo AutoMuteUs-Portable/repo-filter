@@ -40,17 +40,9 @@ jobs:
 
       - name: Create release
         id: create_release
-        uses: actions/create-release@v1
+        shell: pwsh
+        run: |
+          gh release create $env:TAG ../automuteus.zip ../hashes.txt --title "$env:TAG"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-
-      - name: Upload asset
-        id: upload-release-asset
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            ../automuteus.zip
-            ../hashes.txt
+          TAG: ${{ github.ref_name }}
