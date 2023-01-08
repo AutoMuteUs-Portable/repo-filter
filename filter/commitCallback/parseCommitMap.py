@@ -8,6 +8,7 @@ def ParseCommitMap(destination: Path) -> Dict[str, str]:
     commitMap: Dict[str, str] = {}
     with open(path, "r") as f:
         for line in f.readlines():
+            line = line.strip()
             if len(line) != 81:
                 continue
             else:

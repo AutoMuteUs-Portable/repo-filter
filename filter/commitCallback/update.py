@@ -1,4 +1,5 @@
-from typing import Any, Dict
+from pathlib import Path
+from typing import Any, Dict, Union
 
 import git_filter_repo as fr
 
@@ -8,7 +9,17 @@ from utils.dill import FilterInDill
 from .commitCallbackBase import CommitCallbackBase
 
 
-class InitCommitCallback(CommitCallbackBase):
+class UpdateCommitCallback(CommitCallbackBase):
+    def __init__(
+        self,
+        destination: Path,
+        input: Path,
+        output: Path,
+    ):
+        super().__init__(destination, input, output)
+
+        self.filterFrom: Union[str, None] = None
+
     def __call__(self, commit: fr.Commit, metadata: Dict[str, Any]):
         old_hexsha: str = commit.original_id.decode()
 
@@ -17,7 +28,7 @@ class InitCommitCallback(CommitCallbackBase):
             filter._destination = self.destination
             filter._filter = self.filter
         else:
-            if len(commit.parents) == 0:
+            if commit.original_id.decode() == self.filterFrom:
                 filter = Filter(
                     self.filter, self.destination, self.filesToAdd, self.filesToRemove
                 )

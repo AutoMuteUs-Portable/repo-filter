@@ -35,7 +35,7 @@ class Filter(FilterBase):
     def __call__(self, commit: fr.Commit, metadata: Dict[str, Any]):
         for pattern in self.filesToRemove:
             for fileChange in filter(
-                lambda x: fnmatch(x.filename.decode("utf-8"), pattern),
+                lambda x: fnmatch(x.filename.decode(), pattern),
                 commit.file_changes.copy(),
             ):
                 commit.file_changes.remove(fileChange)

@@ -9,4 +9,5 @@ class FilterInDill(TypedDict):
 
 
 class DillObject(TypedDict):
+    old_HEAD_hexsha: str
     appliedFilters: List[FilterInDill]

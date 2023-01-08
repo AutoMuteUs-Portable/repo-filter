@@ -1,4 +1,5 @@
 import os
+import subprocess
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
@@ -33,6 +34,7 @@ class CommitCallbackBase:
             with open(self.input, "rb") as f:
                 obj: DillObject = dill.load(f, ignore=True)
 
+            self.old_HEAD_hexsha = obj["old_HEAD_hexsha"]
             self.appliedFilters = obj["appliedFilters"]
 
         self.filesToRemove = [".github/*", ".github/**/*", "README.md", "LICENSE"]
@@ -62,7 +64,7 @@ class CommitCallbackBase:
                     contents = f.read()
                 mode = format(
                     create_ce_mode(_wstat64(path.as_posix()).st_mode), "o"
-                ).encode("utf-8")
+                ).encode()
 
                 file = File(filename, contents, mode)
                 self.filesToAdd.append(file)
@@ -81,7 +83,22 @@ class CommitCallbackBase:
             appliedFilters = self.appliedFilters.copy()
             appliedFilters.update(self.newlyAppliedFilters)
 
-            obj = DillObject(appliedFilters=appliedFilters)
+            new_HEAD_hexsha = (
+                subprocess.check_output(
+                    ["git", "rev-list", "--max-count", "1", "HEAD"],
+                    cwd=self.destination,
+                )
+                .decode()
+                .strip()
+            )
+            for key, val in appliedFilters.items():
+                if val["new_hexsha"] == new_HEAD_hexsha:
+                    old_HEAD_hexsha = key
+                    break
+
+            obj = DillObject(
+                old_HEAD_hexsha=old_HEAD_hexsha, appliedFilters=appliedFilters
+            )
 
             with open(self.output, "wb") as f:
                 dill.dump(obj, f)

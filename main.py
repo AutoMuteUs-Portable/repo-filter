@@ -3,8 +3,8 @@ from typing import Optional
 import click
 
 from commands.init import Init
+from commands.update import Update
 from utils.initializeConsole import InitializeConsole
-from utils.remote import Remote
 
 console = InitializeConsole()
 
@@ -22,27 +22,47 @@ def automuteus():
 @automuteus.command("init")
 @click.option("--input", type=click.Path(dir_okay=False, exists=True))
 @click.option("--output", type=click.Path(dir_okay=False, exists=False), required=True)
+@click.option("--force", is_flag=True, default=False)
 @click.argument("destination", type=click.Path(file_okay=False, exists=False))
 @click.argument(
     "upstream-url", type=str, default="https://github.com/automuteus/automuteus"
 )
-@click.argument("upstream-branch", type=str, default="master")
 def automuteus_init(
     input: Optional[str],
     output: str,
+    force: bool,
     destination: str,
     upstream_url: str,
-    upstream_branch: str,
 ):
-    Init(destination, input, output, Remote(url=upstream_url, branch=upstream_branch))
+    Init(destination, input, output, upstream_url, force)
+
+
+@automuteus.command("update")
+@click.option("--input", type=click.Path(dir_okay=False, exists=True), required=True)
+@click.option("--output", type=click.Path(dir_okay=False, exists=False))
+@click.option("--force", is_flag=True, default=False)
+@click.argument("destination", type=click.Path(file_okay=False, exists=False))
+@click.argument(
+    "upstream-url", type=str, default="https://github.com/automuteus/automuteus"
+)
+def automuteus_update(
+    input: str,
+    output: Optional[str],
+    force: bool,
+    destination: str,
+    upstream_url: str,
+):
+    Update(
+        destination, input, output if output is not None else input, upstream_url, force
+    )
+
+
+def main():
+    try:
+        cli()
+    except:
+        console.print_exception()
 
 
 if __name__ == "__main__":
-    try:
-        cli()
-    except SystemExit as e:
-        pass
-    except click.Abort:
-        console.print("Aborted", style="bold red")
-    except:
-        console.print_exception()
+    main()
