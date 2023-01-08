@@ -3,7 +3,6 @@ from typing import List, TypedDict
 from filter.filterBase import FilterBase
 
 
-
 class FilterInDill(TypedDict):
     new_hexsha: str
     filter: FilterBase

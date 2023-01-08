@@ -1,7 +1,7 @@
 import os
+import tempfile
 from pathlib import Path
 from shutil import copy
-import tempfile
 from typing import Optional
 
 import click

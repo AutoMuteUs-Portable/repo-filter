@@ -1,12 +1,7 @@
 from typing import Optional
 
 from rich.console import Console
-from rich.progress import (
-    GetTimeCallable,
-    Progress,
-    SpinnerColumn,
-    TimeElapsedColumn,
-)
+from rich.progress import GetTimeCallable, Progress, SpinnerColumn, TimeElapsedColumn
 
 
 def CustomProgress(
